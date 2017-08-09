@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import pg8000 as db
+import os
 
 # function that queries redshift table and returns a message
 def redshift(client):
@@ -18,14 +19,13 @@ def redshift(client):
     query2 = "SELECT sum(pageviews) FROM {}.vw_final_channel_aggr_default where date >= \'{}\';".format(client, date2)
 
     # connect to redshift
-    conn = db.connect(database="db", host="host", port=5439, user="user", password="password")
+    conn = db.connect(database=os.environ['RS_DB'], host=os.environ['RS_HOST'], port=5439, user=os.environ['RS_USER'], password=os.environ['RS_PASSWORD'])
     cur = conn.cursor()
     cur.execute(query)
     result = cur.fetchone()
 
     # insert metric into variable
     pgv = result[0]
-    print(pgv)
 
     # running for 2nd metric
     cur.execute(query2)
@@ -33,7 +33,6 @@ def redshift(client):
 
     # insert metric into variable
     pgv2 = result[0]
-    print(pgv2)
 
     # conditional logic for output
     if pgv2 == 0 and pgv > 0:
@@ -72,3 +71,6 @@ def lambda_handler(event, context):
         msg = redshift(client)
         print(msg) # for debugging purposes
         return build_response(msg)
+
+
+print(redshift("enablon"))
