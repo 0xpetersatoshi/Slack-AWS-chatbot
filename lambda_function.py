@@ -19,7 +19,10 @@ def redshift(client):
     query2 = "SELECT sum(pageviews) FROM {}.vw_final_channel_aggr_default where date >= \'{}\';".format(client, date2)
 
     # connect to redshift
-    conn = db.connect(database=os.environ['RS_DB'], host=os.environ['RS_HOST'], port=5439, user=os.environ['RS_USER'], password=os.environ['RS_PASSWORD'])
+    conn = db.connect(database=os.environ['RS_DB'],
+     host=os.environ['RS_HOST'],
+     port=5439, user=os.environ['RS_USER'],
+     password=os.environ['RS_PASSWORD'])
     cur = conn.cursor()
     cur.execute(query)
     result = cur.fetchone()
@@ -73,4 +76,5 @@ def lambda_handler(event, context):
         return build_response(msg)
 
 
-print(redshift("enablon"))
+# for testing
+# print(redshift("enablon"))
