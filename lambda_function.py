@@ -42,15 +42,14 @@ nlg_dict = {
 }
 
 
-# function that queries redshift
 def redshift(client):
-    """Runs the SQL query in Redshift and returns the message to send back to Slack.
+    """Runs the SQL query in Redshift and returns a formatted message.
     
     Args:
         client: The client name to pass into the SQL query.
 
     Returns:
-        The formatted message that will be passed back to the user in Slack.
+        The formatted message that will eventually be passed back to the user in Slack.
     """
 
     try:
