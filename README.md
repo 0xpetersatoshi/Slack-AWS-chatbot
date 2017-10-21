@@ -1,5 +1,7 @@
 # AWS Lambda python script for Slack chatbot
 
+NLP is performed by Amazon Lex. Once intent is determined, it triggers this lambda function which takes the client name from the intent and passes it on to the SQL query.
+
 ## Example usage in Slack:
 
 **User asks bot:**
