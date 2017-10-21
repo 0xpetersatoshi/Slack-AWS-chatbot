@@ -211,7 +211,6 @@ def redshift(client):
         # for debugging
         print('message: ', msg)
 
-
         return msg
 
 
